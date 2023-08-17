@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Search from '../components/Blog/Blog/Search';
 const Navbar = () => {
   const token = localStorage.getItem('TOKEN');
@@ -56,6 +57,7 @@ const Navbar = () => {
                 onClick={() => {
                   localStorage.clear();
                   navigate('/login');
+                  toast.success('log out successfully');
                 }}
                 className="bg-cyan-400 shadow-xl p-2 rounded-md"
               >

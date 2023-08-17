@@ -10,6 +10,9 @@ export const api = createApi({
     getAllBlogs: builder.query({
       query: url => url,
     }),
+    getRelatedBlogs: builder.query({
+      query: url => url,
+    }),
     getSingleBlog: builder.query({
       query: id => `/${id}`,
     }),
@@ -26,4 +29,5 @@ export const {
   useGetSingleBlogQuery,
   useDeleteBlogMutation,
   useEditBlogMutation,
+  useGetRelatedBlogsQuery,
 } = api;

@@ -1,30 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { toast } from 'react-hot-toast';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   useDeleteBlogMutation,
-  useGetRelatedBlogsQuery,
   useGetSingleBlogQuery,
 } from '../../../redux/api';
-import { valueSet } from '../../../redux/button/buttonAction';
-import RelatedBlog from '../RelatedBlog/RelatedBlog';
-
-const BlogDetails = () => {
+const RelatedBlogDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { data: blog } = useGetSingleBlogQuery(id);
-  const buttonValue = useSelector(store => store?.buttonData?.buttonValue);
-
-  const url = `/?category=${buttonValue}`;
-  const { data } = useGetRelatedBlogsQuery(url);
-  console.log(data?.blogs);
-  const dispatch = useDispatch();
-  dispatch(valueSet(blog?.category));
-
   const [deleteData, { isLoading, isError }] = useDeleteBlogMutation();
+  const navigate = useNavigate();
   const handelDeleteBlog = id => {
     const aggre = window.confirm(
       `Are you sure you want to delete : ${blog?.title}`
@@ -35,15 +22,8 @@ const BlogDetails = () => {
       navigate('/');
     }
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem('TOKEN');
-    if (!token) {
-      navigate('/login');
-    }
-  }, []);
   return (
-    <>
+    <div>
       <div className=" ">
         <Link to={'/'}>
           <button className="bg-cyan-500 p-2 rounded-md shadow-md">
@@ -76,17 +56,8 @@ const BlogDetails = () => {
           <div dangerouslySetInnerHTML={{ __html: blog?.description }} />
         </div>
       </div>
-      <div className="divider mt-10 mb-10 text-cyan-600 font-bold text-2xl">
-        Related Blog
-      </div>
-
-      <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl mt-4 mb-4">
-        {data?.blogs.map(blog => (
-          <RelatedBlog key={blog?._id} blog={blog} />
-        ))}
-      </div>
-    </>
+    </div>
   );
 };
 
-export default BlogDetails;
+export default RelatedBlogDetails;

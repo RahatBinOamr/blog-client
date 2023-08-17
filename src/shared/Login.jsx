@@ -15,8 +15,6 @@ const Login = () => {
         password: password,
       })
       .then(res => {
-        console.log(res.data);
-
         if (res.data.code === 500) {
           alert('User Not Found');
         }
