@@ -4,12 +4,12 @@ import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { relatedBlogSet } from '../../../redux/Related/RelatedAction';
 import {
   useDeleteBlogMutation,
   useGetRelatedBlogsQuery,
   useGetSingleBlogQuery,
 } from '../../../redux/api';
-import { valueSet } from '../../../redux/button/buttonAction';
 import RelatedBlog from '../RelatedBlog/RelatedBlog';
 
 const BlogDetails = () => {
@@ -22,7 +22,7 @@ const BlogDetails = () => {
   const { data } = useGetRelatedBlogsQuery(url);
   console.log(data?.blogs);
   const dispatch = useDispatch();
-  dispatch(valueSet(blog?.category));
+  dispatch(relatedBlogSet(blog?.category));
 
   const [deleteData, { isLoading, isError }] = useDeleteBlogMutation();
   const handelDeleteBlog = id => {
