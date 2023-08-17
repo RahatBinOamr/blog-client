@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
@@ -23,6 +23,13 @@ const BlogDetails = () => {
       navigate('/');
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('TOKEN');
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <>
       <div className=" ">
