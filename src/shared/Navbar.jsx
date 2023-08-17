@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Search from '../components/Blog/Blog/Search';
 const Navbar = () => {
+  const token = localStorage.getItem('TOKEN');
+  const navigate = useNavigate();
   return (
     <div className=" ">
       <div className="navbar bg-base-300 justify-between mx-auto w-full sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
@@ -49,12 +51,24 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="">
-            <Link
-              to={'/login'}
-              className="bg-gray-300 shadow-xl p-2 rounded-md"
-            >
-              Login
-            </Link>
+            {token ? (
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  navigate('/login');
+                }}
+                className="bg-cyan-400 shadow-xl p-2 rounded-md"
+              >
+                LogOut
+              </button>
+            ) : (
+              <Link
+                to={'/login'}
+                className="bg-gray-300 shadow-xl p-2 rounded-md"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>

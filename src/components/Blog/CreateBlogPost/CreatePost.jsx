@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Toaster, toast } from 'react-hot-toast';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
@@ -32,8 +31,11 @@ const CreatePost = () => {
       .then(data => {
         console.log('hello', data);
         if (data?.status === 'success') {
-          toast.success('blog added successfully');
-          <Toaster position="top-center" reverseOrder={false} />;
+          <div className="toast toast-top toast-end">
+            <div className="alert alert-success">
+              <span>Message sent successfully.</span>
+            </div>
+          </div>;
           resetBlog();
           navigate('/');
         }

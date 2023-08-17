@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -9,24 +9,23 @@ const Register = () => {
   const navigate = useNavigate();
   const handelRegister = event => {
     event.preventDefault();
-    const user = { name, email, password };
-    console.log(user);
-    fetch(`https://blog-server-inky.vercel.app/api/v1/user/register`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data?.status === 'success') {
-          navigate('/login');
-          toast.success('register  successfully');
-        }
-        console.log('hello', data);
+    axios
+      .post('https://blog-server-inky.vercel.app/api/v1/user/register', {
+        email: email,
+        password: password,
       })
-      .catch(err => console.error(err));
+      .then(res => {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          alert('Register success.');
+          navigate('/login');
+        } else {
+          alert('Error.');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   return (
     <>

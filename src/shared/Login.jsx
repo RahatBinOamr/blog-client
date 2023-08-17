@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -8,24 +8,31 @@ const Login = () => {
   const navigate = useNavigate();
   const handelLogin = event => {
     event.preventDefault();
-    const user = { email, password };
 
-    fetch(`https://blog-server-inky.vercel.app/api/v1/user/login`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data === 'success') {
-          navigate('/');
-          toast.success('logged in successfully');
-        }
-        console.log('hello', data);
+    axios
+      .post('https://blog-server-inky.vercel.app/api/v1/user/login', {
+        email: email,
+        password: password,
       })
-      .catch(err => console.error(err));
+      .then(res => {
+        console.log(res.data);
+
+        if (res.data.code === 500) {
+          alert('User Not Found');
+        }
+        if (res.data.code === 404) {
+          alert('Password is wrong');
+        }
+        if (res.data.code === 200) {
+          // move to home
+          navigate('/');
+          localStorage.setItem('TOKEN', res.data.token);
+          localStorage.setItem('EMAIL', res.data.email);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   return (
     <>

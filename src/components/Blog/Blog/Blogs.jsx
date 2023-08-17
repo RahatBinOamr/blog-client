@@ -47,7 +47,7 @@ const Blogs = () => {
             value={data}
             onClick={() => handelButton(data)}
             className={`p-2 rounded-md me-2 mt-2 ${
-              data === selectedCategory ? 'bg-green-500' : 'bg-cyan-400 '
+              data === selectedCategory ? 'bg-slate-400' : 'bg-cyan-400 '
             }`}
           >
             {data}

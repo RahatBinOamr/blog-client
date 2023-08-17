@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
-import Login from './shared/Login';
+import Home from './components/Page/Home';
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('TOKEN');
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <div className="min-h-screen">
-      <Login />
+      <Home />
     </div>
   );
 }
