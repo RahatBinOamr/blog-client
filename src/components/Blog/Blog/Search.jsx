@@ -8,6 +8,7 @@ const Search = () => {
   const handelSearch = e => {
     e.preventDefault();
     dispatch(searchData(search));
+    setSearch('');
   };
   return (
     <div className="flex items-center">
