@@ -1,0 +1,3 @@
+server: https://github.com/RahatBinOamr/blog-server
+client: https://github.com/RahatBinOamr/blog-client
+live: https://blog-client-tawny.vercel.app/
