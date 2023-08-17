@@ -1,7 +1,7 @@
 import { RELATED } from './RelatedAction';
 
 const initialState = {
-  buttonValue: '',
+  relatedValue: '',
 };
 
 const relatedReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const relatedReducer = (state = initialState, action) => {
     case RELATED:
       return {
         ...state,
-        buttonValue: action.payload,
+        relatedValue: action.payload,
       };
     default:
       return state;

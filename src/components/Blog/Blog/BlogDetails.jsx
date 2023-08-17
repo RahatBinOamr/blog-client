@@ -16,9 +16,9 @@ const BlogDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: blog } = useGetSingleBlogQuery(id);
-  const buttonValue = useSelector(store => store?.buttonData?.buttonValue);
+  const relatedValue = useSelector(store => store?.relatedData?.relatedValue);
 
-  const url = `/?category=${buttonValue}`;
+  const url = `/?category=${relatedValue}`;
   const { data } = useGetRelatedBlogsQuery(url);
   console.log(data?.blogs);
   const dispatch = useDispatch();
